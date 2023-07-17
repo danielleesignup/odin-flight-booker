@@ -1,0 +1,70 @@
+<h1>Flight Search</h1>
+
+<!-- Search Form -->
+<%= form_tag flights_path, method: :get do %>
+  <div>
+    <%= label_tag :departure_id, "Departure Airport" %>
+    <%= select_tag :departure_id, options_from_collection_for_select(@departure_airports, "id", "code"), include_blank: true %>
+  </div>
+
+  <div>
+    <%= label_tag :arrival_id, "Arrival Airport" %>
+    <%= select_tag :arrival_id, options_from_collection_for_select(@arrival_airports, "id", "code"), include_blank: true %>
+  </div>
+
+  <div>
+    <%= label_tag :passenger_count, "Number of Passengers" %>
+    <%= select_tag :passenger_count, options_for_select(@passenger_options), include_blank: true %>
+  </div>
+
+  <div>
+    <%= label_tag :flight_date, "Flight Date" %>
+    <%= select_date(Date.today, prefix: 'flight', include_blank: true, start_year: Date.today.year, end_year: Date.today.year + 1) %>
+  </div>
+
+  <%= submit_tag "Search", class: "btn btn-primary" %>
+<% end %>
+
+
+<h2> All Flights </h2>
+<ul>
+  <% @flights.each do |flight| %>
+    <li>Flight Number: <%= flight.number %></li>
+    <li>Origin: <%= flight.departure_airport.code %></li>
+    <li>Destination: <%= flight.arrival_airport.code %></li>
+    <li>Flight Date: <%= flight.start_datetime %></li>
+    <li>Duration: <%= flight.duration %> minutes</li>
+    <br>
+  <% end %>
+</ul>
+
+<!-- Flight Results -->
+<h2>Flight Results</h2>
+
+
+<%= form_tag new_booking_path, method: :get do %>
+  <%= hidden_field_tag :passenger_count, params[:passenger_count] %>
+
+  <ul>
+    <% if @searched_flights.nil? %>
+      <h3> No matching flights. </h3>
+    <% else %>
+      <% @searched_flights.each do |flight| %>
+        <li>
+          <%= radio_button_tag :selected_flight_id, flight.id %>
+          <label>
+            Flight Number: <%= flight.number %><br>
+            Origin: <%= flight.departure_airport.code %><br>
+            Destination: <%= flight.arrival_airport.code %><br>
+            Flight Time: <%= flight.start_datetime %><br>
+            Duration: <%= flight.duration %> minutes
+          </label>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <%= submit_tag "Select Flight", class: "btn btn-primary" %>
+<% end %>
+
+ 

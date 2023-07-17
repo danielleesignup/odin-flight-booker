@@ -1,0 +1,34 @@
+<h1> NEW BOOKING </h1>
+
+<ul>
+  <li>Flight Number: <%= @selected_flight.number %></li>
+  <li>Origin: <%= @selected_flight.departure_airport.code %></li>
+  <li>Destination: <%= @selected_flight.arrival_airport.code %></li>
+  <li>Flight Time: <%= @selected_flight.start_datetime %></li>
+  <li>Duration: <%= @selected_flight.duration %> minutes</li>
+  <li>Passenger Count: <%= @passenger_count %> people</li>
+  <br>
+</ul>
+
+<!-- Booking Form -->
+<%= form_for @booking do |f| %>
+  <% @passenger_count.times do |index| %>
+    <h3>Passenger <%= index + 1 %></h3>
+    <%= f.fields_for :passengers, Passenger.new do |passenger_fields| %>
+      <!-- Passenger form fields go here -->
+      <%= passenger_fields.label :name, "Name" %>
+      <%= passenger_fields.text_field :name %>
+      <%= passenger_fields.label :email, "Email" %>
+      <%= passenger_fields.text_field :email %>
+      <%# <%= passenger_fields.hidden_field :booking_id, value: @booking.id%> %>
+    <% end %>
+    <br>
+  <% end %>
+
+  <!-- Flight Information -->
+  <%= f.hidden_field :flight_id, value: @selected_flight.id %>
+
+  <!-- Other booking form fields go here -->
+
+  <%= f.submit "Create Booking" %>
+<% end %>

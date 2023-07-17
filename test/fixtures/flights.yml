@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  departure_id: 1
+  arrival_id: 1
+  start_datetime: 2023-07-15 06:57:04
+  duration: 1
+
+two:
+  number: MyString
+  departure_id: 1
+  arrival_id: 1
+  start_datetime: 2023-07-15 06:57:04
+  duration: 1

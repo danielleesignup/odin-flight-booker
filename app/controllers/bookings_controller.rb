@@ -21,6 +21,11 @@ class BookingsController < ApplicationController
           # end
         
         if @booking.save
+          puts ""
+          puts "@BOOKING.SAVE"
+          puts @booking
+          puts ""
+          PassengerMailer.booking_complete_email(@booking).deliver_now
           redirect_to @booking, notice: 'Booking created successfully.'
         else
           render :new

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1> Your Booking ID: <%= @booking.id %>
+    <h1>Your Booking is complete, <%= @passenger.name %></h1>
+    <p>
+      You have successfully booked a flight. Your Flight ID is: <%= @booking.flight_id %>.<br>
+    </p>
+    <p>
+      To go back to the site, just follow this link: <%= @url %>.
+    </p>
+    <p>Thanks for booking and have a great day!</p>
+  </body>
+</html>
